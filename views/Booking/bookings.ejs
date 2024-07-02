@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Bookings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            width: 90%;
+            background-color: #fff;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #ff8787;
+        }
+        
+        .intro {
+            height: 360px;
+            text-align: center;
+            color: #fff;
+            background-image: url('/—Pngtree—3d rendered illustration of the_5592327.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 40px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .intro p {
+            font-size: 1.2em;
+        }
+        
+        .intro h1 {
+            margin-bottom: 10px;
+        }
+        
+        .intro p {
+            margin: 0;
+        }
+        
+        .book {
+            display: inline-block;
+            text-align: center;
+            background-color: #ff8787;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        
+        .book:hover {
+            color: #ff8787;
+            background-color: #0e0e0e;
+        }
+        
+        .btn-edit {
+            background-color: #54dde9;
+            border-color: #54dde9;
+        }
+        
+        .card {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card img {
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .card-body {
+            padding: 15px;
+        }
+        
+        .card-title {
+            color: #ff8787;
+            font-weight: bold;
+        }
+        
+        .card-text {
+            margin-bottom: 10px;
+        }
+        
+        .card a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        
+        .card a:hover {
+            text-decoration: underline;
+        }
+        
+        .card-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-button button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .card-button button:hover {
+            background-color: #c82333;
+        }
+        
+        @media (max-width: 600px) {
+            .book {
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="intro">
+            <h1>Flight Bookings</h1>
+            <p>Welcome to the Flight Booking Management System. Here you can view all your flight bookings.</p>
+        </div>
+        <a href="/booking/new" class="book">Create New Booking</a>
+        <div class="container">
+            <div class="row">
+                <% bookings.forEach(booking => { %>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card">
+                            <img src="/—Pngtree—airplane travel tourism supplies_6374202.png" class="card-img-top" alt="Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Flight Number:
+                                    <%= booking.flightNumber %>
+                                </h5>
+                                <p class="card-text"><strong>Passenger Name:</strong>
+                                    <%= booking.passengerName %>
+                                </p>
+                                <p class="card-text"><strong>Departure Date:</strong>
+                                    <%= booking.departureDate.toDateString() %>
+                                </p>
+                                <p class="card-text"><strong>Seat Number:</strong>
+                                    <%= booking.seatNumber %>
+                                </p>
+                                <div class="card-button">
+                                    <a href="/booking/<%= booking._id %>/edit" class="btn btn-edit">Edit</a>
+                                    <form action="/booking/<%= booking._id %>?_method=DELETE" method="POST" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on('message', (message) => {
+            alert(message);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+
+</html>
