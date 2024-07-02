@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 const user = require('./routes/user');
 app.use('/auth', user);
 const booking = require('./routes/booking');
-app.use('/booking', booking);
+app.use('/bookings', booking);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {

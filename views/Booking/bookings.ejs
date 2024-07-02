@@ -145,7 +145,7 @@
             <h1>Flight Bookings</h1>
             <p>Welcome to the Flight Booking Management System. Here you can view all your flight bookings.</p>
         </div>
-        <a href="/booking/new" class="book">Create New Booking</a>
+        <a href="/bookings/new" class="book">Create New Booking</a>
         <div class="container">
             <div class="row">
                 <% bookings.forEach(booking => { %>
@@ -166,8 +166,8 @@
                                     <%= booking.seatNumber %>
                                 </p>
                                 <div class="card-button">
-                                    <a href="/booking/<%= booking._id %>/edit" class="btn btn-edit">Edit</a>
-                                    <form action="/booking/<%= booking._id %>?_method=DELETE" method="POST" style="display:inline;">
+                                    <a href="/bookings/<%= booking._id %>/edit" class="btn btn-edit">Edit</a>
+                                    <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST" style="display:inline;">
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                 </div>
                             </div>

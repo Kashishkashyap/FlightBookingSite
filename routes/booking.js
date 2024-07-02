@@ -68,7 +68,7 @@ router.post('/', auth, async (req, res) => {
             try {
                 await mg.messages.create(process.env.MAILGUN_DOMAIN, data);
                 console.log('Email sent successfully');
-                res.redirect('/booking');
+                res.redirect('/bookings');
             } catch (error) {
                 console.error('Error sending email:', error);
                 res.status(500).send('Server error');
@@ -95,12 +95,12 @@ router.put('/:id', auth, async (req, res) => {
     const updatedBooking = await Booking.findByIdAndUpdate({ _id: req.params.id, user: req.user._id }, { flightNumber, passengerName, departureDate, seatNumber });
     const io = getIo();
     io.emit('message', `Booking updated for ${updatedBooking.passengerName} on flight ${updatedBooking.flightNumber}`);
-    res.redirect('/booking');
+    res.redirect('/bookings');
 });
 
 router.delete('/:id', auth, async (req, res) => {
     const booking = await Booking.findByIdAndDelete({ _id: req.params.id, user: req.user._id });
-    res.redirect('/booking');
+    res.redirect('/bookings');
 });
 
 module.exports = router;
