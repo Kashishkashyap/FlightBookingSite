@@ -3,6 +3,8 @@ const socketIo = require('socket.io');
 
 let io;
 
+// Initializes Socket.io on the given server.
+
 const initializeSocket = (server) => {
     io = socketIo(server);
 
