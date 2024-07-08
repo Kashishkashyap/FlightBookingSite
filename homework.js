@@ -5,11 +5,11 @@ function pause(milliseconds) {
         setTimeout(resolve, milliseconds);
     });
 }
-
-async function counter() {
+// Asynchronous function to increase the count
+async function counter(interval) {
     let count = 0;
     while (count < 10) {
-        count += 2;
+        count += interval;
         if (count == 10) {
             console.log('Execution completed');
         } else {
@@ -19,7 +19,8 @@ async function counter() {
     }
 }
 
-counter();
+let interval = 2;
+counter(interval);
 
 
 /*
