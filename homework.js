@@ -1,5 +1,6 @@
 console.log("starting");
 
+// Function to create a delay
 function pause(milliseconds) {
     return new Promise((resolve) => {
         setTimeout(resolve, milliseconds);
@@ -15,11 +16,13 @@ async function counter(interval) {
         } else {
             console.log(`${count} seconds completed`);
         }
-        await pause(2000);
+        await pause(interval * 1000);
     }
 }
 
+// interval variable to input our interval duration like in our case we need to print after every 2 seconds
 let interval = 2;
+
 counter(interval);
 
 
